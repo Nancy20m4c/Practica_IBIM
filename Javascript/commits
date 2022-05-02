@@ -1,0 +1,25 @@
+class TableCommit {
+    constructor(){
+        this.Description = Description;
+        this.EmailForgeAccount = EmailForgeAccount;
+        this.VisorTitle =VisorTitle;
+        this.UrnPeriscoopeWeb =UrnPeriscoopeWeb;
+        this.IdUser = IdUser;
+        this.Tag = Tag;
+        this.CodeCommit = CodeCommit;
+        this.PathCommitServer = PathCommitServer;
+        this.IsTranslated= IsTranslated;
+        this.IdProject = IdProject;
+        this.Id = Id;
+        this.IsActive = IsActive;
+    }
+
+    loadData(){
+          fetch('data/response02Commits.json')
+          .then(response => response.json())
+          .then(dataCommit => {
+            });
+        }
+}
+
+const tableCommit = new TableCommit();

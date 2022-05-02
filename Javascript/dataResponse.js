@@ -17,6 +17,7 @@ class Table {
        this.tableProjectThead = document.querySelector('#panelProjects thead');
        this.projectList = [];
        this.commitList = null;
+       this.projectPanel = document.querySelector('#project-panel');
        this.loadData();
    
     
@@ -26,59 +27,25 @@ class Table {
       fetch('data/response01Projects.json')
       .then(response => response.json())
       .then(dataProject => {
-
-        
-
+/* 
         fetch('data/response02Commits.json')
         .then(response => response.json())
-        .then(dataCommit => {
+        .then(dataCommit => { */
           
-          const tdList = [
-            { label: 'logos', fieldName: 'PathLogos', isLogo: true},
-            { label: 'Client', fieldName: 'CodigoCliente'},
-            { label: 'Project code', fieldName: 'CodigoProyecto'},
-            { label: 'Name', fieldName: 'Nombre'},
-            { label: 'Description', fieldName: 'Descripcion' },
-            { label: 'Contratista', fieldName: 'CodigoContratista' },
-            { label: 'Users', fieldName: 'Users' },
-            { label: 'Web App Modules Ids', fieldName: 'WebAppModulesIds' }
-          ];
+          dataProject.message.forEach( project => {
+            let card = document.createElement('mmc-card');
+            card.setAttribute("name", project.Nombre);
+            card.setAttribute("description", project.Descripcion);
+            this.projectPanel.append(card);
+          });
 
-          this.addTrByLabel(this.tableProjectThead, tdList);
-
-           dataProject.message.forEach( project => {
-
-            this.addTrByFieldName(this.tableProjectTbody, project, tdList);
-             if (project.IsActive === false){
-             return;
-             }
-            const commitList = [];
-            dataCommit.message.forEach(commit => {
-              if(commit.CodeCommit.startsWith(project.CodigoProyecto)) {
-                commitList.push(commit);
-              }  
-            });
-
-            // constructor( projectCode, name, description, clientCode, contractCode, users, commits){
-              const proy = new Project(
-                project.CodigoProyecto, 
-                project.Nombre,
-                project.Descripcion,
-                project.CodigoCliente,
-                project.CodigoContratista,
-                project.Users,
-                commitList
-                );
-              this.projectList.push(proy);
-           });
-  
            console.log(this.projectList);
 
-        });
+        /* }); */
       });
     }
 
-    loadCommit(projectCode) {
+    /* loadCommit(projectCode) {
       const commitList = [];
       fetch('data/response02Commits.json')
       .then(response => response.json())
@@ -135,6 +102,6 @@ class Table {
 
       tableTbody.append(tr);
     } 
-
+ */
 };
 const table = new Table();
