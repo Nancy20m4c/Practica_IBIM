@@ -1,4 +1,21 @@
 
 #project-panel mmc-card{
     display: inline-block;
+    width: 500px
+}
+.logo{
+    width: 50px;
+    
+}
+.name{
+    width: 75;
+
+}
+.code{
+    width: 50px;
+
+}
+.description{
+    width: 300px;
+
 }

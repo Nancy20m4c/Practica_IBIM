@@ -18,11 +18,10 @@ class Table {
        this.projectList = [];
        this.commitList = null;
        this.projectPanel = document.querySelector('#project-panel');
-       this.loadData();
-   
-    
-    }
+       this.tableBody = document.querySelector('#tableBody');
 
+       this.loadData();
+    }
     loadData(){
       fetch('data/response01Projects.json')
       .then(response => response.json())
@@ -32,12 +31,17 @@ class Table {
         .then(response => response.json())
         .then(dataCommit => { */
           
-          dataProject.message.forEach( project => {
-            let card = document.createElement('mmc-card');
+        let card = document.createElement('mmc-table');
+        card.setAttribute("projects", JSON.stringify(dataProject.message))
+        this.projectPanel.append(card);
+        /*dataProject.message.forEach( project => {
+            let card = document.createElement('mmc-table');
             card.setAttribute("name", project.Nombre);
             card.setAttribute("description", project.Descripcion);
+            card.setAttribute("code", project.CodigoProyecto);
+            
             this.projectPanel.append(card);
-          });
+          });*/
 
            console.log(this.projectList);
 
