@@ -21,35 +21,53 @@ class Table {
        this.tableBody = document.querySelector('#tableBody');
 
        this.loadData();
+       
     }
+
     loadData(){
       fetch('data/response01Projects.json')
       .then(response => response.json())
       .then(dataProject => {
-/* 
-        fetch('data/response02Commits.json')
+
+      /*fetch('data/response02Commits.json')
         .then(response => response.json())
-        .then(dataCommit => { */
-          
-        let card = document.createElement('mmc-table');
-        card.setAttribute("projects", JSON.stringify(dataProject.message))
-        this.projectPanel.append(card);
-        /*dataProject.message.forEach( project => {
-            let card = document.createElement('mmc-table');
+        .then(dataCommit => { 
+          console.log(dataCommit);*/
+      
+        dataProject.message.forEach( project => {
+            let card = document.createElement('mmc-card');
+            card.setAttribute("code", project.CodigoProyecto)
             card.setAttribute("name", project.Nombre);
             card.setAttribute("description", project.Descripcion);
             card.setAttribute("code", project.CodigoProyecto);
             
+            card.addEventListener("click", function(){
+              _onClickCard(this, project);
+            });
             this.projectPanel.append(card);
-          });*/
+          });
+      });
 
-           console.log(this.projectList);
-
-        /* }); */
+      function _onClickCard(element, project) {
+        console.log(project);
+        console.log(element);
+        fetch('data/response02Commits.json')
+        .then(response => response.json())
+        .then(dataCommit => { 
+          dataCommit.message.forEach(commit => {
+            if(commit.CodeCommit.startsWith(element.CodigoProyecto)) {
+              this.commitList.push(commit);
+              
+              console.log(this.commitList);
+             }
+          }); 
+          console.log(commitList);
       });
     }
+    
 
-    /* loadCommit(projectCode) {
+/* 
+    loadCommit(projectCode) {
       const commitList = [];
       fetch('data/response02Commits.json')
       .then(response => response.json())
@@ -57,6 +75,7 @@ class Table {
          data.message.forEach(commit => {
             if(commit.CodeCommit.startsWith(projectCode)) {
               this.commitList.push(commit);
+              
             }
          });
       });
@@ -73,6 +92,7 @@ class Table {
       });
 
       tableThead.append(tr);
+
     }
 
     addTrByFieldName(tableTbody, rowData, fieldList) {
@@ -105,7 +125,8 @@ class Table {
       });
 
       tableTbody.append(tr);
-    } 
- */
+    }  */
+
 };
+}
 const table = new Table();

@@ -53,12 +53,21 @@ class MmcTable extends HTMLElement{
             </table>
         </div>
         <style>
+        #table{
+            max-height: calc(100vh - 100px);
+            overflow: auto;
+        }
         table {
-            width: 700px;
-            border: 1px solid #000;
+            width: 90%;
+            max-height: calc(100vh - 100px);
+            overflow: auto;
+
+
+            padding: 10px;
+            /* border: 1px solid #000; */
          }
          th, td {
-            width: 70px;
+            width: 20s%;
             text-align: left;
             vertical-align: top;
             

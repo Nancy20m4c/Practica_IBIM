@@ -4,19 +4,23 @@ class MmcCard extends HTMLElement{
         this.name;// = 'Demo Project Name';
         this.description;// = 'Demo Project Description: Lore ipsum...';
         this.myLogoPath = 'images/Logo_IBIM.png';
+        this.code;
         this.attachShadow({mode: 'open'});
     }
 
     static get observedAttributes(){
-        return ['name', "description"];
+        return ['name', "description", "code"];
     }
 
     
     attributeChangedCallback(nameAttr, oldValue, newValue){
         switch(nameAttr){
+            case "code":
+                this.code = newValue;
+            break;
             case "name":
                 this.name = newValue;
-            break;
+                break;
             case "description":
                 this.description = newValue;
             break;
@@ -32,18 +36,16 @@ class MmcCard extends HTMLElement{
                     <div class="my-image">
                         <img src="${this.myLogoPath}">
                     </div>
+                    <div class="my-name text-limit" title="${this.code}">
+                    ${this.code}
+                    </div>
                     <div class="my-name text-limit" title="${this.name}">
                     ${this.name}
-                    </div>
-                    <div class="my-description  text-limit-2" title="${this.description}">
-                    ${this.description} 
                     </div>
                 </div>
         </div>
         <style>
-        #mainPanel{
 
-        }
             #main-panel > div{
                 display: inline-block;
             }
@@ -62,34 +64,38 @@ class MmcCard extends HTMLElement{
                 text-align: center;
             }
             
-
             .my-card:hover{
                 border: 1px solid black;
                 cursor:pointer;
             }
             .my-card{
-                margin:  .75rem;
-                border-radius: 25px;
+                margin: 0.75rem;
+                border-radius: 10px;
                 box-shadow: 0px 0px 10px #00000029;
                 transition: 0.3s;
                 border-radius: 10 px;
-                color: #707070;;
-                width: 250px;
-                height: 200px;
+                color: #707070;
+                width: 150px;
+                height: 110px;
                 display: grid;
                 grid-template-columns: repeat(1, 1fr);
-                grid-auto-rows: minmax(50px, auto); 
+                grid-auto-rows: minmax(10px, 25px); 
             }
             .my-image{
                 grid-column: 1;
                 grid-row: 1/3;
                 background-color: aliceblue;
-                border-top-left-radius: 25px;
-                border-top-right-radius: 25px;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
             }   
             .my-image img{
+                width: auto;
+                height: auto;
+                max-height: 100%;
+                max-width: 100%;
                 margin: 0 auto;
                 display: flex;
+            
             }
             .my-name{
                 font-size: 1rem;
