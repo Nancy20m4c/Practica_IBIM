@@ -22,7 +22,7 @@
     background: aliceblue;
 }
 #tableProject tbody tr{
-
+    position: relative;
 }
 #tableProject thead tr, #tableProject tbody tr{
     border-bottom: 1px solid #efefef;
@@ -112,4 +112,29 @@ table {
 td, th {
     border: 1px solid gray ;
     padding: 2px
+}
+
+
+div.actionPanel{
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    background: white;
+    width: 165px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    
+}
+
+div.actionPanel i{
+    cursor: pointer;
+    
+}
+
+div.actionPanel i:hover{
+    background-color: aliceblue;    
+    padding: 2px;
 }

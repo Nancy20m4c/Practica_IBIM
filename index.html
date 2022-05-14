@@ -8,6 +8,7 @@
    <!-- ss<script type="module" src="components/mmcTable.js"></script> -->
    <!-- <script type="module" src="components/mmcTable2.js"></script> -->
      <link  rel="stylesheet" href="styles.css">
+     <link  rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     
     <title>IBIM</title>
@@ -17,6 +18,9 @@
         <nav class="navbar navbar-light bg-light">
             <div>
                 <h4>Projects</h4>
+            </div>
+            <div>
+                <button id="returnBtn">return</button>
             </div>
             <div>
                 <input class="radius seach-btn" type="text" value="" placeholder="&#x1F50E;&#xFE0E;">
@@ -32,33 +36,28 @@
                     <th class="code">code</th>
                     <th class="name">name</th>
                     <th class="description">description</th>
+                    <!-- <th class="acctions"></th> -->
                 </tr>
             </thead>
+        <tbody>
+            <tr><td><img style="zoom: .3;" src="images\descarga.png"></td><td>474 COPCISA</td><td>Pruebas COPCISA</td>
+                
+                <td>
+                    Proyecto de prueba de COPCISA - UCV
+                
+                    <div class="actionPanel">
+                        <div style="flex: 1 1 auto;">...</div>
+                        <i style="flex: 1 1 auto;" class="fa fa-plus" aria-hidden="true"></i>
+                        <i style="flex: 1 1 auto;" class="fa fa-pencil-square-o" aria-hidden="true"></i>  
+                        <i style="flex: 1 1 auto;" class="fa fa-trash-o" aria-hidden="true"></i>
+                      </div> 
 
-            <tr>
-                <td class="logo">
-                    <img src="images\descarga.png">
                 </td>
-                <td class="code">192</td>
-                <td class="name">alicante</td>
-                <td class="description">tramo alicante bailen</td>
+                
+  
             </tr>
-            <tr>
-                <td class="logo">
-                    <img src="images\descarga.png">
-                </td>
-                <td class="code">192</td>
-                <td class="name">alicante</td>
-                <td class="description">tramo alicante bailen</td>
-            </tr>
-            <tr>
-                <td class="logo">
-                    <img src="images\descarga.png">
-                </td>
-                <td class="code">192</td>
-                <td class="name">alicante</td>
-                <td class="description">tramo alicante bailen</td>
-            </tr>
+
+        </tbody>
          </table> 
         
     </div>
