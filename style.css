@@ -1,0 +1,48 @@
+#commitList{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    border-bottom: 1px solid gray;
+    max-width: 800px;
+    max-height: 100px;
+    grid-auto-rows: minmax(10px, 25px);
+  
+
+}
+#commitList > div{
+   padding: 6px 3px;
+
+}
+img{
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+}
+.title{
+    text-align: initial;
+    font-weight: 800;
+    background-color: aliceblue;
+
+}
+.text{
+
+}
+
+.logo{
+   
+            
+}
+.name{
+    
+
+}
+.code{
+   
+
+}
+.description{
+    
+
+} 
