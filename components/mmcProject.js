@@ -2,16 +2,17 @@ class MmcProject extends HTMLElement{
     constructor(){
         super();
         this._project;
+        this.codeproject;
 /*         this.name;// = 'Demo Project Name';
         this.description;// = 'Demo Project Descripti   on: Lore ipsum...';
-        this.codeProject;
+        
         this.codeClient */
         this.myLogoPath = 'images/Logo_IBIM.png';
         this.attachShadow({mode: 'open'});
     }
 
     static get observedAttributes(){
-        return [/* 'name', "description", "codeProject", "codeClient",  */"project"];
+        return [/* 'name', "description",  "codeClient",  */"codeproject", "project"];
     }
 
 
@@ -27,9 +28,10 @@ class MmcProject extends HTMLElement{
     attributeChangedCallback(nameAttr, oldValue, newValue){
         console.log(this._project);
         switch(nameAttr){
-/*             case "codeProject":
-                this.codeProject = newValue;
+            case "codeproject":
+                this.codeproject = newValue;
             break;
+/*             
             case "codeClient":
                 this.codeClient = newValue;
             break;
@@ -54,7 +56,7 @@ class MmcProject extends HTMLElement{
             <div id="project">
                 <div class="logo my-image"><img src="${this.myLogoPath}"></div>
                 <div class="title">
-                    <div class="Codeproject text cut-txt"><span class="fieldName">Project:</span> ${this._project.projectCode}</div>
+                    <div class="Codeproject text cut-txt"><span class="fieldName">Project:</span> ${this.codeproject}</div>
                     <div class="code text cut-txt"><span class="fieldName">Client:</span> ${this._project.clientCode}</div>
                     <div class="name text cut-txt"><span class="fieldName" >Name:</span> <span title="${this._project.name}">${this._project.name}</span></div>
                 </div>

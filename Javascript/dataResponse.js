@@ -1,5 +1,5 @@
 class Project {
-  constructor(projectCode, name, description, clientCode, contractCode, users, commits, images) {
+  constructor(projectCode, name, description, clientCode, contractCode, users, commits, images, htmlElemt) {
     this.projectCode = projectCode;
     this.name = name;
     this.description = description;
@@ -8,33 +8,38 @@ class Project {
     this.users = users;
     this.commits = commits;
     this.images = images;
+    this.htmlElemt = htmlElemt;
+
   }
 
   // funcion encargada de cargar los commits el codigo proyecto empieza por el
-  addCommit(commit) {
+  addCommit(commit, panel) {
     if (commit.CodeCommit.startsWith(this.projectCode)) {
       this.commits.push(commit);
-
+      const element = document.createElement('div');
+      element.innerHTML = `${commit.CodeCommit}`;
+      panel.append(element);
     }
   }
 }
 
-class Table {
-  constructor() {
-    this.mainPanel = document.getElementById('mainPanel');
-    this.tableProjectTbody = document.querySelector('#panelProjects tbody');
-    this.tableProjectThead = document.querySelector('#panelProjects thead');
-    this.projectList = [];
-    this.activeProject;
-    //this.commitList = [];
-    this.projectPanel = document.querySelector('#project-panel');
-    this.tableBody = document.querySelector('#tableBody');
 
+class Main {
+  constructor() {
+    this.originalProjectList = [];
+    this.projectList = [];
+    this.projectPanel = document.querySelector('#project-panel');
     this.loadData();
+
 
   }
 
   loadData() {
+    let returnBtn = document.getElementById('returnBtn');
+    returnBtn.addEventListener("click", function(){
+      main.reloadProjectElements();
+    });
+
     // cargamos proyectos
     fetch('data/response01Projects.json')
       .then(response => response.json())
@@ -52,112 +57,66 @@ class Table {
             project.CodigoContratista,
             project.Users,
             [],
-            project.PathLogos
+            project.PathLogos,
+            null
           );
+
+          const projectElement = this.createProjectHtmlElement(myProject);
+          myProject.htmlElemt = projectElement;
 
           // cargo cada proyecto al listado de mi clase Table
           this.projectList.push(myProject);
+          
+          this.projectPanel.append(projectElement);
+          
+        });
+      });
+      
+    };
+    
+    loadCommit(projectElement) {
+      const commitPanel = document.getElementById('commitList');
+      const codeproject = projectElement.getAttribute("codeproject");
+      const project = main.projectList.find( proj => proj.projectCode === codeproject);
 
-          let projectElement = document.createElement('mmc-project');
-            projectElement.setAttribute('project', JSON.stringify(myProject));
-
-            this.projectPanel.append(projectElement);
-
-
-        projectElement.addEventListener('click', function(event){
-          const elements = document.querySelectorAll('mmc-project');
-          elements.forEach(element =>{
-           if(element !== event.target){
-             element.remove();
-           }
+      fetch('data/response02Commits.json')
+        .then(response => response.json())
+        .then(dataCommit => {
+          dataCommit.message.forEach(commit => {
+            project.addCommit(commit, commitPanel);
           });
 
-          
 
         });
-
-    
-          // creamos un componente card y seteamos sus atributos
-          //let card = this.addCardToProjectPanelHTML(myProject);
-          // let tr = this.addProjectTrToTableByIdHTML(myProject, 'tableProject');
-
+    }
+    createProjectHtmlElement(project) {
+      let projectElement = document.createElement('mmc-project');
+      projectElement.setAttribute('project', JSON.stringify(project));
+      projectElement.setAttribute('codeProject', project.projectCode);
+      projectElement.addEventListener('click', function(event){
+        const elements = document.querySelectorAll('mmc-project');
+        elements.forEach(element =>{
+          if(element !== event.target){
+            element.remove();
+          }
         });
+        main.loadCommit(event.target);
       });
+      return projectElement;
+  }
 
-  };
 
+  reloadProjectElements() {
+    let panelCommit =document.querySelector('#commitList');
+    panelCommit.innerHTML = '';
 
-
-  removeOtherProjectTr(trProject, tableId) {
-    const query = '#' + tableId + ' tbody tr';
-
-    const trList = document.querySelectorAll(query);
-
-    trList.forEach(tr => {
-      if (trProject != tr) {
-        tr.remove();
-      }
+    main.projectList.forEach(project => {
+      main.projectPanel.append(project.htmlElemt);
+      
     });
-
   }
 
-  /* addProjectTrToTableByIdHTML(project, tableId) {
-    const query = '#' + tableId + ' tbody';
-    console.log(query);
-    const tableBody = document.querySelector(query);
 
-    const tr = document.createElement('tr');
-
-    const tdLogo = document.createElement('td');
-    tdLogo.innerHTML = `<img style="zoom: .3;" src="images\\descarga.png">`;
-    tr.append(tdLogo);
-
-    const tdCode = document.createElement('td');
-    tdCode.innerText = project.projectCode;
-    tr.append(tdCode);
-
-    const tdName = document.createElement('td');
-    tdName.innerText = project.name;
-    tr.append(tdName);
-
-    const tdDesc = document.createElement('td');
-    tdDesc.innerText = project.description;
-    tr.append(tdDesc);
-
-
-
-    tr.addEventListener(
-      'click', function () {
-        table.removeOtherProjectTr(this, 'tableProject');
-      });
-
-    tr.addEventListener(
-      'mouseenter', function (event) {
-
-        // eliminamos todos los action panels
-        const actionPanels = document.querySelectorAll('.actionPanel');
-        actionPanels.forEach(a => {
-          a.remove();
-        });
-
-        // añadimos un action panel al ultimo TD del TR activo
-        const lastTd = this.children[this.children.length - 1];
-        lastTd.insertAdjacentHTML('afterend', `
-          <div class="actionPanel">
-            <div style="flex: 1 1 auto;">...</div>
-            <i style="flex: 1 1 auto;" class="fa fa-star-o" aria-hidden="true"></i>
-            <i style="flex: 1 1 auto;" class="fa fa-plus" aria-hidden="true"></i>
-            <i style="flex: 1 1 auto;" class="fa fa-pencil-square-o" aria-hidden="true"></i>  
-            <i style="flex: 1 1 auto;" class="fa fa-trash-o" aria-hidden="true"></i>
-          </div> 
-          `);
-      });
-
-    tableBody.append(tr);
-
-    return tr;
-  }
- */
   addCardToProjectPanelHTML(project) {
     let card = document.createElement('mmc-card');
     card.setAttribute("code", project.projectCode);
@@ -173,23 +132,14 @@ class Table {
     });
 
     function _onClickCard(element, project) {
-      table.activeProject = project;
-      table.activeProject.commits = [];
+      main.activeProject = project;
+      main.activeProject.commits = [];
 
 
-      fetch('data/response02Commits.json')
-        .then(response => response.json())
-        .then(dataCommit => {
-          dataCommit.message.forEach(commit => {
-            table.activeProject.addCommit(commit);
-          });
-        });
-
-      console.log(table.activeProject);
     }
   }
 
 }
-const table = new Table();
+const main = new Main();
 
 
