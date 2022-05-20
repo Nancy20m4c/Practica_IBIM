@@ -9,8 +9,15 @@
     --secondary-background-color: #d7d7d7;
   }
 
+#project-panel{
+    width: 1600px;
+    margin: auto;
+}
 #project-panel mmc-card{
-    display:inline-block;   
+    display:inline-block;
+    max-width: 70%;
+    max-height: 750px;
+    overflow: auto; 
 }
 
 #tableProject{

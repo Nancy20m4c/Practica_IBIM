@@ -1,0 +1,33 @@
+#commitList{
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr;
+    border-bottom: 1px solid gray;
+    max-width: 80%;
+    height: 75px;
+    align-items: revert;
+    font-style: inherit;
+    font-size: large;
+    font-family: sans-serif;
+}
+#commitList > div{
+   padding: 6px 3px;
+}
+.my-image img{
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+}
+.title{
+    display: grid;
+
+}
+.logo{
+    background-color:  hsl(213deg 40% 91%);          
+}
+.name{
+    grid-column: 1 / span 2;
+    grid-row: 2;  
+}

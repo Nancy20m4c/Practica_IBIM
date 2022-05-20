@@ -1,6 +1,7 @@
 class MmcCard extends HTMLElement{
     constructor(){
         super();
+        
         this.name;// = 'Demo Project Name';
         this.description;// = 'Demo Project Description: Lore ipsum...';
         this.myLogoPath = 'images/Logo_IBIM.png';
@@ -9,9 +10,8 @@ class MmcCard extends HTMLElement{
     }
 
     static get observedAttributes(){
-        return ['name', "description", "code"];
+        return ['name', "description", "code", "prk"];
     }
-
     
     attributeChangedCallback(nameAttr, oldValue, newValue){
         switch(nameAttr){

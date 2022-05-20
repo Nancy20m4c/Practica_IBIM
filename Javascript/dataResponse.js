@@ -58,9 +58,14 @@ class Table {
           // cargo cada proyecto al listado de mi clase Table
           this.projectList.push(myProject);
 
+          let projectElement = document.createElement('mmc-project');
+            projectElement.setAttribute('project', JSON.stringify(myProject));
+
+            this.projectPanel.append(projectElement);
+          
           // creamos un componente card y seteamos sus atributos
-          let card = this.addCardToProjectPanelHTML(myProject);
-          let tr = this.addProjectTrToTableByIdHTML(myProject, 'tableProject');
+          //let card = this.addCardToProjectPanelHTML(myProject);
+          // let tr = this.addProjectTrToTableByIdHTML(myProject, 'tableProject');
 
         });
       });
@@ -74,7 +79,7 @@ class Table {
 
     trList.forEach(tr => {
       if (trProject != tr) {
-         tr.remove();
+        tr.remove();
       }
     });
 
@@ -103,14 +108,7 @@ class Table {
     tdDesc.innerText = project.description;
     tr.append(tdDesc);
 
-    /*     const tdActions = document.createElement('td');
-        tdActions.innerHTML = `
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  
-          <i class="fa fa-trash-o" aria-hidden="true"></i>
-        `;
-        console.log(tdActions);
-        tr.append(tdActions); */
+
 
     tr.addEventListener(
       'click', function () {
@@ -131,6 +129,7 @@ class Table {
         lastTd.insertAdjacentHTML('afterend', `
           <div class="actionPanel">
             <div style="flex: 1 1 auto;">...</div>
+            <i style="flex: 1 1 auto;" class="fa fa-star-o" aria-hidden="true"></i>
             <i style="flex: 1 1 auto;" class="fa fa-plus" aria-hidden="true"></i>
             <i style="flex: 1 1 auto;" class="fa fa-pencil-square-o" aria-hidden="true"></i>  
             <i style="flex: 1 1 auto;" class="fa fa-trash-o" aria-hidden="true"></i>
