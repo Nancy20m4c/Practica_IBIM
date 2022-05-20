@@ -1,3 +1,24 @@
+#commitList{
+    display: grid;
+    grid-template-columns: 10% 35% 35%;
+    border-bottom: 1px solid gray;
+    max-width: 80%;
+    height: 75px;
+    align-items: revert;
+    font-style: inherit;
+    font-size: large;
+    font-family: sans-serif;
+}
+#commitList > div{
+   padding: 6px 3px;
+}
+.active{
+    grid-row: 1 / span 2;
+
+}
+
+
+
 
 :root {
     --nav-left-width: 260x;
@@ -10,8 +31,11 @@
   }
 
 #project-panel{
-    width: 1600px;
+    width: 80%;
+    min-width: 800px;
+    max-width: 2000px;
     margin: auto;
+    overflow: auto;
 }
 #project-panel mmc-card{
     display:inline-block;

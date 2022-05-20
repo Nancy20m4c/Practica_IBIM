@@ -62,7 +62,21 @@ class Table {
             projectElement.setAttribute('project', JSON.stringify(myProject));
 
             this.projectPanel.append(projectElement);
+
+
+        projectElement.addEventListener('click', function(event){
+          const elements = document.querySelectorAll('mmc-project');
+          elements.forEach(element =>{
+           if(element !== event.target){
+             element.remove();
+           }
+          });
+
           
+
+        });
+
+    
           // creamos un componente card y seteamos sus atributos
           //let card = this.addCardToProjectPanelHTML(myProject);
           // let tr = this.addProjectTrToTableByIdHTML(myProject, 'tableProject');
@@ -71,6 +85,8 @@ class Table {
       });
 
   };
+
+
 
   removeOtherProjectTr(trProject, tableId) {
     const query = '#' + tableId + ' tbody tr';
@@ -85,7 +101,7 @@ class Table {
 
   }
 
-  addProjectTrToTableByIdHTML(project, tableId) {
+  /* addProjectTrToTableByIdHTML(project, tableId) {
     const query = '#' + tableId + ' tbody';
     console.log(query);
     const tableBody = document.querySelector(query);
@@ -141,7 +157,7 @@ class Table {
 
     return tr;
   }
-
+ */
   addCardToProjectPanelHTML(project) {
     let card = document.createElement('mmc-card');
     card.setAttribute("code", project.projectCode);
