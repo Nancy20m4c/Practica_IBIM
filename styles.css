@@ -1,22 +1,42 @@
 #commitList{
-/*     display: grid;
-    grid-template-columns: 10% 35% 35%;
-    border-bottom: 1px solid gray;
-    max-width: 80%;
-    height: 75px;
+    display: inline-flexbox;
+    width: 80%;
+    min-width: 800px;
+    max-width: 2000px;
+    margin: auto;
+    overflow: auto;
+}
+
+
+}
+#cardCommit{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    max-width: 25%;
+    height: 110px;
     align-items: revert;
     font-style: inherit;
-    font-size: large;
-    font-family: sans-serif; */
+    border: 1px solid #d4e6ed70;
+    border-radius: 10px;
+    background-color: aliceblue;
 }
-#commitList > div{
-   padding: 6px 3px;
+#cardCommit:hover{
+    background: #f7f7f7;
+    cursor:pointer;
 }
-.active{
-    grid-row: 1 / span 2;
+.fieldName{
+    font-weight: 600;
+    color: #00a3cc;
+}
 
+.path{
+    grid-column: 1 / span 2;
+    grid-row: 4;
 }
-
+.visorTitle{
+    grid-column: 1 / span 2;
+    grid-row: 3;
+}
 
 
 
@@ -43,7 +63,7 @@
     max-height: 750px;
     overflow: auto; 
 }
-
+/* 
 #tableProject{
     text-align: center;
     width: 90%;
@@ -106,7 +126,7 @@
 .description{
     width: 300px;
 
-} 
+}  */
 
 nav.navbar{
     padding: 1rem;

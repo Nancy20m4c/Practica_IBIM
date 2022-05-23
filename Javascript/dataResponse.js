@@ -16,9 +16,15 @@ class Project {
   addCommit(commit, panel) {
     if (commit.CodeCommit.startsWith(this.projectCode)) {
       this.commits.push(commit);
-      const element = document.createElement('div');
-      element.innerHTML = `${commit.CodeCommit}`;
-      panel.append(element);
+      let cardCommit = document.createElement('mmc-commit');
+      cardCommit.setAttribute('code', commit.CodeCommit);
+      cardCommit.setAttribute('tag', commit.Tag);
+      cardCommit.setAttribute('description', commit.Description);
+      cardCommit.setAttribute('active', commit.IsActive);
+      cardCommit.setAttribute('visor', commit.VisorTitle);
+      cardCommit.setAttribute('path', commit.PathCommitServer);
+      
+      panel.append(cardCommit);
     }
   }
 }
@@ -109,10 +115,8 @@ class Main {
   reloadProjectElements() {
     let panelCommit =document.querySelector('#commitList');
     panelCommit.innerHTML = '';
-
     main.projectList.forEach(project => {
-      main.projectPanel.append(project.htmlElemt);
-      
+      main.projectPanel.append(project.htmlElemt);    
     });
   }
 

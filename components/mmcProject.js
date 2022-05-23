@@ -12,38 +12,13 @@ class MmcProject extends HTMLElement{
     }
 
     static get observedAttributes(){
-        return [/* 'name', "description",  "codeClient",  */"codeproject", "project"];
+        return ["codeproject", "project"];
     }
-
-
-/*     get project() {
-        console.log(this._project);
-        return this._project;
-    }
-    set project(newVal) {
-        console.log(this._project);
-        this._project = newValue;//JSON.parse(newValue);
-    } */
-    
     attributeChangedCallback(nameAttr, oldValue, newValue){
-        console.log(this._project);
         switch(nameAttr){
             case "codeproject":
                 this.codeproject = newValue;
             break;
-/*             
-            case "codeClient":
-                this.codeClient = newValue;
-            break;
-            case "name":
-                this.name = newValue;
-                break;
-            case "description":
-                this.description = newValue;
-            break;
-            case "myLogoPath":
-                this.myLogoPath = newValue;
-            break; */
             case "project":
                 this._project = JSON.parse(newValue);
                 console.log(this._project);
@@ -212,13 +187,6 @@ class MmcProject extends HTMLElement{
             </style>
             `;
     }
-/*
-    disconnectedCallback() {
-        console.log('disconnected!');
-    }
-    adoptedCallback() {
-        console.log('adopted!');
-    }
-*/
+
 }
 window.customElements.define('mmc-project', MmcProject);

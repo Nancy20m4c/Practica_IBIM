@@ -73,7 +73,6 @@ class MmcCard extends HTMLElement{
                 border-radius: 10px;
                 box-shadow: 0px 0px 10px #00000029;
                 transition: 0.3s;
-                border-radius: 10 px;
                 color: #707070;
                 width: 150px;
                 height: 110px;
