@@ -45,28 +45,29 @@ class MmcCommit extends HTMLElement {
         this.shadowRoot.innerHTML = `
         <div id="mainPanel">
             <div id="cardCommit">
-                <div class="codeCommit"><span class="fieldName">Code:</span>${this.code}</div>
+                <div class="codeCommit cut-txt" title="${this.code}"><span class="fieldName">Code:</span>${this.code}</div>
                 <div class="tag"><span class="fieldName">Tag:</span>${this.tag}</div>
-                <div class="description"><span class="fieldName">Description:</span>${this.description}</div>
+                <div class="description cut-txt" title="${this.description}"><span class="fieldName">Description:</span>${this.description}</div>
                 <div class="active"><span class="fieldName">Active:</span>${this.active}</div>
-                <div class="VisorTitle"><span class="fieldName">Visor:</span>${this.visor}</div>
-                <div class="path"><span class="fieldName">Path:</span>${this.path}</div>
+                <div class="VisorTitle cut-txt" title="${this.visor}"><span class="fieldName">Visor:</span>${this.visor}</div>
+                <div class="path cut-txt" title="${this.path}"><span class="fieldName">Path:</span>${this.path}</div>
             </div>
         </div>
         <style>
-            #main-panel > div{
-                display: inline-block;
+            
+            #mainPanel{
+                padding: 3px;
             }
             #cardCommit{
                 display: grid;
                 grid-template-columns: 2fr 1fr;
-                max-width: 70%;
+                max-width: 400px;
                 height: 110px;
                 align-items: revert;
                 font-style: inherit;
                 border: 1px solid #d4e6ed70;
                 border-radius: 10px;
-                background-color: aliceblue;
+                
             }
             #cardCommit:hover{
                 background: #f7f7f7;
@@ -75,6 +76,12 @@ class MmcCommit extends HTMLElement {
             .fieldName{
                 font-weight: 600;
                 color: #00a3cc;
+                background-color: aliceblue;
+            }
+            .cut-txt { 
+                text-overflow: ellipsis;
+                overflow: hidden;  
+                white-space: nowrap;
             }
 
             .path{

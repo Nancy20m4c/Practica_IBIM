@@ -35,7 +35,7 @@ class MmcProject extends HTMLElement{
                     <div class="code text cut-txt"><span class="fieldName">Client:</span> ${this._project.clientCode}</div>
                     <div class="name text cut-txt"><span class="fieldName" >Name:</span> <span title="${this._project.name}">${this._project.name}</span></div>
                 </div>
-                <div class="description text"><span class="fieldName">Description:</span> <br>${this._project.description}description
+                <div class="description text"><span class="fieldName">Description:</span> <br>${this._project.description}</div>
                 
                 <div class="action-panel">
                     <div style="width:270px; height: 100%;">
@@ -74,8 +74,6 @@ class MmcProject extends HTMLElement{
                 height: 75px;
                 align-items: revert;
                 font-style: inherit;
-                font-size: large;
-                font-family: sans-serif;
             }
             #project:hover{
                 background: #f7f7f7;
