@@ -1,4 +1,4 @@
-class MmcCommit extends HTMLElement {
+class MmcCommitItem extends HTMLElement {
     constructor( ) {
         super();
         this.Code;
@@ -98,4 +98,4 @@ class MmcCommit extends HTMLElement {
     }
 
 }
-window.customElements.define('mmc-commit', MmcCommit);
+window.customElements.define('mmc-commit-item', MmcCommitItem);

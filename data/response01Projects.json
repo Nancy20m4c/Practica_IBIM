@@ -92,45 +92,45 @@
             "Id": "601818eea72166d86aea2191",
             "IsActive": true
         },
-        {
-            "CollectionName": "ProyectosIfc",
-            "CodigoProyecto": "526",
-            "PathProjectServer": "",
-            "Nombre": "BEEP-IVE",
-            "Descripcion": "Edificio de rehabilitación.",
-            "CodigoCliente": "IVE",
-            "CodigoContratista": "",
-            "Users": [
-                "60227c1b8049c84725f4f035",
-                "602540b38049c84725f4f056",
-                "602a8a3b1a2e811aeee61f59",
-                "606f3a2e74459a95cd5799e5",
-                "60e709735e360463b1ed1140",
-                "60901feca27b42d4cd87386d"
-            ],
-            "PathLogos": [],
-            "ConfigParameters": [
-                {
-                    "Param": "BEEP-IVE",
-                    "HtmlElement": "",
-                    "Visible": true
-                }
-            ],
-            "WebAppModulesIds": [
-                "60819b8ea23cb2000460f769",
-                "60819b8ea23cb2000460f76f",
-                "60819b8ea23cb2000460f772",
-                "60819b8ea23cb2000460f775",
-                "60819b8ea23cb2000460f778",
-                "60819b8ea23cb2000460f77e",
-                "60819b8ea23cb2000460f787",
-                "60819b8ea23cb2000460f77b",
-                "609bea2f324c62523c5b22bb"
-            ],
-            "TablesIfcIds": [],
-            "Id": "60227c5c8049c84725f4f039",
-            "IsActive": true
-        },
+            {
+                "CollectionName": "ProyectosIfc",
+                "CodigoProyecto": "526",
+                "PathProjectServer": "",
+                "Nombre": "BEEP-IVE",
+                "Descripcion": "Edificio de rehabilitación.",
+                "CodigoCliente": "IVE",
+                "CodigoContratista": "",
+                "Users": [
+                    "60227c1b8049c84725f4f035",
+                    "602540b38049c84725f4f056",
+                    "602a8a3b1a2e811aeee61f59",
+                    "606f3a2e74459a95cd5799e5",
+                    "60e709735e360463b1ed1140",
+                    "60901feca27b42d4cd87386d"
+                ],
+                "PathLogos": [],
+                "ConfigParameters": [
+                    {
+                        "Param": "BEEP-IVE",
+                        "HtmlElement": "",
+                        "Visible": true
+                    }
+                ],
+                "WebAppModulesIds": [
+                    "60819b8ea23cb2000460f769",
+                    "60819b8ea23cb2000460f76f",
+                    "60819b8ea23cb2000460f772",
+                    "60819b8ea23cb2000460f775",
+                    "60819b8ea23cb2000460f778",
+                    "60819b8ea23cb2000460f77e",
+                    "60819b8ea23cb2000460f787",
+                    "60819b8ea23cb2000460f77b",
+                    "609bea2f324c62523c5b22bb"
+                ],
+                "TablesIfcIds": [],
+                "Id": "60227c5c8049c84725f4f039",
+                "IsActive": true
+            },
         {
             "CollectionName": "ProyectosIfc",
             "CodigoProyecto": "434_CL_CIS_TER_FGV-L10-ElectrificacionAlicanteNazaret",

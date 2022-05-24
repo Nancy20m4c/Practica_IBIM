@@ -1,50 +1,68 @@
 class Project {
-  constructor(projectCode, name, description, clientCode, contractCode, users, commits, images, htmlElemt) {
-    this.projectCode = projectCode;
-    this.name = name;
-    this.description = description;
-    this.clientCode = clientCode;
-    this.contractCode = contractCode;
-    this.users = users;
-    this.commits = commits;
-    this.images = images;
-    this.htmlElemt = htmlElemt;
-
+  constructor(project, htmlElemt, isFavorite) {
+    this.project    = project;
+    this.htmlElemt  = htmlElemt;
+    this.isFavorite  = isFavorite;
+    this.commitList = [];
   }
 
   // funcion encargada de cargar los commits el codigo proyecto empieza por el
   addCommit(commit, panel) {
-    if (commit.CodeCommit.startsWith(this.projectCode)) {
-      this.commits.push(commit);
-      let cardCommit = document.createElement('mmc-commit');
-      cardCommit.setAttribute('code', commit.CodeCommit);
-      cardCommit.setAttribute('tag', commit.Tag);
-      cardCommit.setAttribute('description', commit.Description);
-      cardCommit.setAttribute('active', commit.IsActive);
-      cardCommit.setAttribute('visor', commit.VisorTitle);
-      cardCommit.setAttribute('path', commit.PathCommitServer);
+    if (commit.CodeCommit.startsWith(this.project.CodigoProyecto)) {
+      this.commitList.push(commit);
+
+      const commitElement = this.createCommitHtmlElement(commit);
       
-      panel.append(cardCommit);
+      panel.append(commitElement);
     }
   }
+
+  createCommitHtmlElement(commit) {
+    let cardCommit = document.createElement('mmc-commit-item');
+    cardCommit.setAttribute('code', commit.CodeCommit);
+    cardCommit.setAttribute('tag', commit.Tag);
+    cardCommit.setAttribute('description', commit.Description);
+    cardCommit.setAttribute('active', commit.IsActive);
+    cardCommit.setAttribute('visor', commit.VisorTitle);
+    cardCommit.setAttribute('path', commit.PathCommitServer);
+    
+    return cardCommit;
+  }
+
 }
 
 
 class Main {
   constructor() {
-    this.originalProjectList = [];
     this.projectList = [];
+    this.favoriteFilter = false;
+    this.favoriteList = [];
     this.projectPanel = document.querySelector('#project-panel');
     this.loadData();
-
+    
 
   }
 
   loadData() {
+
+    // inicializamos los favoritos del localstorage
+    var localFavoriteList = localStorage.getItem('ibimFavoriteList');
+    if(localFavoriteList && localFavoriteList !== null) {
+      this.favoriteList = JSON.parse(localFavoriteList);
+    }
+
+
     let returnBtn = document.getElementById('returnBtn');
     returnBtn.addEventListener("click", function(){
       main.reloadProjectElements();
     });
+
+    let favoriteBtn = document.getElementById('favoriteBtn');
+    favoriteBtn.addEventListener("click", function(){
+      main.manageFavoriteBtn();
+    });
+
+    
 
     // cargamos proyectos
     fetch('data/response01Projects.json')
@@ -54,21 +72,20 @@ class Main {
         // recorremos los proyectos
         dataProject.message.forEach(project => {
 
-          // utilizo mi clase project para guardar los datos que me interesanm de cada proyecto.
-          const myProject = new Project(
-            project.CodigoProyecto,
-            project.Nombre,
-            project.Descripcion,
-            project.CodigoCliente,
-            project.CodigoContratista,
-            project.Users,
-            [],
-            project.PathLogos,
-            null
-          );
+          let isFavorite = false;
+          this.favoriteList.forEach( favoriteItem => {
+            if (favoriteItem === project.CodigoProyecto) {
+              isFavorite = true;
+            }
+          });
 
-          const projectElement = this.createProjectHtmlElement(myProject);
-          myProject.htmlElemt = projectElement;
+          const projectElement = this.createProjectHtmlElement(project, isFavorite);
+
+          const myProject = new Project(
+            project,
+            projectElement,
+            isFavorite
+          );
 
           // cargo cada proyecto al listado de mi clase Table
           this.projectList.push(myProject);
@@ -82,8 +99,14 @@ class Main {
     
     loadCommit(projectElement) {
       const commitPanel = document.getElementById('commitList');
+      commitPanel.innerHTML = '';
+
       const codeproject = projectElement.getAttribute("codeproject");
-      const project = main.projectList.find( proj => proj.projectCode === codeproject);
+
+      console.log(codeproject);
+      console.log(main.projectList);
+
+      const project = main.projectList.find( proj => proj.project.CodigoProyecto === codeproject);
 
       fetch('data/response02Commits.json')
         .then(response => response.json())
@@ -95,19 +118,62 @@ class Main {
 
         });
     }
-    createProjectHtmlElement(project) {
-      let projectElement = document.createElement('mmc-project');
-      projectElement.setAttribute('project', JSON.stringify(project));
-      projectElement.setAttribute('codeProject', project.projectCode);
-      projectElement.addEventListener('click', function(event){
-        const elements = document.querySelectorAll('mmc-project');
-        elements.forEach(element =>{
-          if(element !== event.target){
+
+    removeAllProjectsHtmls(){
+      const projectList = document.querySelectorAll('mmc-project-item');
+
+      projectList.forEach(p => {
+        p.remove();
+      });
+
+    }
+
+    createProjectHtmlElement(project, isFavorite) {
+      let projectElement = document.createElement('mmc-project-item');
+      projectElement.setAttribute('id', project.CodigoProyecto);
+      projectElement.setAttribute('codeproject', project.CodigoProyecto);
+      projectElement.setAttribute('name', project.Nombre);
+      projectElement.setAttribute('description', project.Descripcion);
+      projectElement.setAttribute('codeclient', project.CodigoCliente);
+      projectElement.setAttribute('favorite', isFavorite);
+
+      projectElement.addEventListener('click', (event) => {
+        const elements = document.querySelectorAll('mmc-project-item');
+        elements.forEach(element => {
+          if(element !== event.target) {
             element.remove();
           }
         });
         main.loadCommit(event.target);
       });
+
+      projectElement.addEventListener('onStarClick', (event) => {
+        main.projectList.forEach(project => {
+          if(project.htmlElemt === event.target) {
+            const element = project.htmlElemt;
+            let favorite = element.getAttribute('favorite') === 'true';
+            element.setAttribute( 'favorite', !favorite);
+            
+            if(!favorite) {
+              main.favoriteList.push(event.target.getAttribute('codeproject'));
+              localStorage.setItem('ibimFavoriteList', JSON.stringify(main.favoriteList));
+            } else {
+              main.favoriteList = main.favoriteList.filter(favoriteItem => { favoriteItem === event.target.getAttribute('codeproject')});
+              localStorage.setItem('ibimFavoriteList', JSON.stringify(main.favoriteList));
+            }
+            
+            
+          }
+          
+        });
+        
+        event.preventDefault();
+        event.stopPropagation();
+      });
+
+      
+
+
       return projectElement;
   }
 
@@ -118,6 +184,25 @@ class Main {
     main.projectList.forEach(project => {
       main.projectPanel.append(project.htmlElemt);    
     });
+  }
+
+  manageFavoriteBtn() { 
+    main.favoriteFilter = !main.favoriteFilter;
+    
+    if (main.favoriteFilter) {
+      const projectList = document.querySelectorAll('mmc-project-item');
+
+      projectList.forEach(p => {
+        if(p.favorite !== 'true' && p.favorite !== true) {
+          p.remove();
+
+        }
+      });
+
+    } else {
+      main.reloadProjectElements();
+    }
+
   }
 
 

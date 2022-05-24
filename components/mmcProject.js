@@ -1,47 +1,70 @@
-class MmcProject extends HTMLElement{
+class MmcProjectItem extends HTMLElement{
     constructor(){
         super();
-        this._project;
         this.codeproject;
-/*         this.name;// = 'Demo Project Name';
-        this.description;// = 'Demo Project Descripti   on: Lore ipsum...';
-        
-        this.codeClient */
-        this.myLogoPath = 'images/Logo_IBIM.png';
+        this.name;
+        this.description
+        this.codeClient
+        this.mylogopath = 'images/Logo_IBIM.png';
+        this.favorite;
+
+//         this._favoriteIcon = 'star-icon-1 item';
         this.attachShadow({mode: 'open'});
     }
 
     static get observedAttributes(){
-        return ["codeproject", "project"];
+        return ["codeproject", "name", "description", "codeclient", "mylogopath", "favorite"];
     }
     attributeChangedCallback(nameAttr, oldValue, newValue){
         switch(nameAttr){
             case "codeproject":
                 this.codeproject = newValue;
             break;
-            case "project":
-                this._project = JSON.parse(newValue);
-                console.log(this._project);
+            case "name":
+                this.name = newValue;
+            break;
+            case "description":
+                this.description = newValue;
+            break;
+            case "codeclient":
+                this.codeclient = newValue;
+            break;
+            case "mylogopath":
+                this.mylogopath = newValue;
+            break;
+            case "favorite":
+                    const favorite = this.shadowRoot.getElementById('favorite');
+                    if(favorite != undefined) {
+                        if(newValue === true || newValue === 'true' ) {
+                            favorite.className = 'star-icon-2 item';
+                        } else {
+                            favorite.className = 'star-icon-1 item';
+                        }
+                    }
+
+
+                this.favorite = newValue;
             break;
         }
     }
+    
     connectedCallback() {
         this.shadowRoot.innerHTML = `
         <div id="mainPanel">
             <div id="project">
-                <div class="logo my-image"><img src="${this.myLogoPath}"></div>
+                <div class="logo my-image"><img src="${this.mylogopath}"></div>
                 <div class="title">
                     <div class="Codeproject text cut-txt"><span class="fieldName">Project:</span> ${this.codeproject}</div>
-                    <div class="code text cut-txt"><span class="fieldName">Client:</span> ${this._project.clientCode}</div>
-                    <div class="name text cut-txt"><span class="fieldName" >Name:</span> <span title="${this._project.name}">${this._project.name}</span></div>
+                    <div class="code text cut-txt"><span class="fieldName">Client:</span> ${this.codeclient}</div>
+                    <div class="name text cut-txt"><span class="fieldName" >Name:</span> <span title="${this.name}">${this.name}</span></div>
                 </div>
-                <div class="description text"><span class="fieldName">Description:</span> <br>${this._project.description}</div>
+                <div class="description text"><span class="fieldName">Description:</span> <br>${this.description}</div>
                 
                 <div class="action-panel">
                     <div style="width:270px; height: 100%;">
                         <div class="arrow-black-left item"></div>
-                        <div class="star-icon-1 item"></div>
-                        <div class="star-icon-2 item"></div>
+                        <div id="favorite" class="${this.favorite === true || this.favorite === 'true' ? 'star-icon-2 item': 'star-icon-1 item'}"></div>
+                        <div class="edit-icon item"></div>
                         <div class="trash-icon item"></div>
                     </div>
                 </div>
@@ -68,8 +91,7 @@ class MmcProject extends HTMLElement{
             #project{
                 display: grid;
                 grid-template-columns: 1fr 2fr 3fr;
-                /* border-bottom: 1px solid gray; */
-                
+                position: relative; 
                 max-width: 100%;
                 height: 75px;
                 align-items: revert;
@@ -129,26 +151,37 @@ class MmcProject extends HTMLElement{
                 display: inline-block;
                 background-position: center;
                 background-repeat: no-repeat;
-                /* width: 40px; */
-                width: 23%;
+                width: 14%;
                 height: 100%;
                 position: relative;
                 left: -3px;
-                background-size: 40px auto;
+                background-size: 34px auto;
             }
 
+            .action-panel > div > .item:not(.arrow-black-left):hover {
+                background-color: #00a3cc38;
+                height: 52%;
+                position: relative;
+                bottom: 25%;
+                border-radius: 21px;
+            }
             .star-icon-1 {
                 background-image: url(images/star_icon_1.svg);
             }
 
             .star-icon-2 {
                 background-image: url(images/star_icon_2.svg);
-                background-size: 50px auto !important;
+                background-size: 39px auto !important;
+            }
+
+            .edit-icon {
+                background-image: url(images/edit_pen_icon.svg);
+                background-size: 28px auto !important;
             }
 
             .trash-icon {
                 background-image: url(images/trash_icon.svg);
-                background-size: 33px auto !important;
+                background-size: 26px auto !important;
             }
 
             .arrow-black-left {
@@ -172,19 +205,29 @@ class MmcProject extends HTMLElement{
                 border-radius: 5px;
                 overflow: hidden;
             }
+            
             .action-panel:hover{
-                width:270px;
+                width:175px;
                 animation-name: example;
                 animation-duration: 0.5s;
             }
+
             @keyframes example {
                 from  {width:37px;}
-                to {width:270px;}
+                to {width:175px;}
               }
             
             </style>
             `;
+
+            const favoriteElement = this.shadowRoot.getElementById('favorite');
+            favoriteElement.addEventListener('click', (e) => {
+                const event = new Event('onStarClick');
+                this.dispatchEvent(event);
+                e.preventDefault();
+                //e.stopPropagation();
+            }); 
     }
 
 }
-window.customElements.define('mmc-project', MmcProject);
+window.customElements.define('mmc-project-item', MmcProjectItem);
