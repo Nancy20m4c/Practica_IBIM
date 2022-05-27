@@ -87,6 +87,13 @@ class MmcCommitItem extends HTMLElement {
             .path{
                 grid-column: 1 / span 2;
                 grid-row: 4;
+                background-color: #d4e6ed70;
+            }
+            .description{
+                background-color: #d4e6ed70;
+            }
+            .active{
+                background-color: #d4e6ed70;
             }
             .visorTitle{
                 grid-column: 1 / span 2;
@@ -96,6 +103,7 @@ class MmcCommitItem extends HTMLElement {
         </style>
         `;
     }
+    
 
 }
 window.customElements.define('mmc-commit-item', MmcCommitItem);

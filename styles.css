@@ -1,136 +1,32 @@
-#commitList{
-    display: grid;
-    grid-template-columns: 90% 90%;
-    width: 80%;
-    min-width: 800px;
-    max-width: 2000px;
-    margin: auto;
-    overflow: auto;
-}
-
-#cardCommit{
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    max-width: 25%;
-    height: 110px;
-    align-items: revert;
-    font-style: inherit;
-    border: 1px solid #d4e6ed70;
-    border-radius: 10px;
-    background-color: aliceblue;
-}
-#cardCommit:hover{
-    background: #f7f7f7;
-    cursor:pointer;
-}
-.fieldName{
-    font-weight: 600;
-    color: #00a3cc;
-}
-
-.path{
-    grid-column: 1 / span 2;
-    grid-row: 4;
-}
-.visorTitle{
-    grid-column: 1 / span 2;
-    grid-row: 3;
-}
-
-
 
 :root {
     --nav-left-width: 260x;
-    --radius: 5px;
-
+    --radius: 5px; 
     --primary-color: #d7d7d7;
     --secondary-color: #d7d7d7;
     --primary-background-color:  #d7d7d7;
     --secondary-background-color: #d7d7d7;
-  }
+}
 
-#project-panel{
+nav.navbar{
     width: 80%;
     min-width: 800px;
     max-width: 2000px;
     margin: auto;
     overflow: auto;
-}
-#project-panel mmc-card{
-    display:inline-block;
-    max-width: 70%;
-    max-height: 750px;
-    overflow: auto; 
-}
-/* 
-#tableProject{
-    text-align: center;
-    width: 90%;
-    margin: 0 auto;
-}
-#tableProject thead tr{
-    background: aliceblue;
-}
-#tableProject tbody tr{
-    position: relative;
-}
-#tableProject thead tr, #tableProject tbody tr{
-    border-bottom: 1px solid #efefef;
-}
-#tableProject td{
-    
-}
-
-#tableProject th.logo{}
-#tableProject th.code{}
-#tableProject th.name{}
-#tableProject th.description{}
-
-#tableProject td.logo{
-}
-#tableProject td.logo img{ 
-        width: auto;
-        height: auto;
-        max-height: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-        display: flex;
-}
-#tableProject td.code{}
-#tableProject td.name{}
-#tableProject td.description{}
-#tableProject th{
-    
-}
-#tableProject td, #tableProject th{
-    height: 30px;
-    width: 20%;
-}
-
-
-
-
-.logo{
-   
-            
-}
-.name{
-    width: 75;
-
-}
-.code{
-    width: 50px;
-
-}
-.description{
-    width: 300px;
-
-}  */
-
-nav.navbar{
     padding: 1rem;
     border-color: var(--primary-color);
-        
+    
+}
+ul {
+	list-style: circle;
+}
+li {
+    padding-bottom: 0.9em;
+}
+.content-area li {
+	font-size: .8em;
+	font-weight: 400;
 }
 
 .seach-btn{
@@ -155,36 +51,36 @@ button.seach-btn:focus{
     width: var(--nav-left-width);
 }
 
-
-table {
-    border-collapse: collapse ;
+body{
+    color: #d7d7d7;
+   
 }
-td, th {
-    border: 1px solid gray ;
-    padding: 2px
+#project-panel{
+    width: 80%;
+    min-width: 800px;
+    max-width: 2000px;
+    margin: auto;
+    overflow: auto;
+}
+#project-panel mmc-card{
+    display:inline-block;
+    max-width: 70%;
+    max-height: 750px;
+    overflow: auto; 
 }
 
-
-div.actionPanel{
+#commitList{
     display: flex;
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    background: white;
-    width: 165px;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    
-}
-
-div.actionPanel i{
-    cursor: pointer;
-    
-}
-
-div.actionPanel i:hover{
-    background-color: aliceblue;    
-    padding: 2px;
+    width: 80%;
+    min-width: 800px;
+    max-width: 2000px;
+    margin: auto;
+    overflow: auto;
+    border: 1px solid #d4e6ed70;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
 }

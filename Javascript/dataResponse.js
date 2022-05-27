@@ -25,10 +25,8 @@ class Project {
     cardCommit.setAttribute('active', commit.IsActive);
     cardCommit.setAttribute('visor', commit.VisorTitle);
     cardCommit.setAttribute('path', commit.PathCommitServer);
-    
     return cardCommit;
   }
-
 }
 
 
@@ -39,18 +37,14 @@ class Main {
     this.favoriteList = [];
     this.projectPanel = document.querySelector('#project-panel');
     this.loadData();
-    
-
   }
 
   loadData() {
-
     // inicializamos los favoritos del localstorage
     var localFavoriteList = localStorage.getItem('ibimFavoriteList');
     if(localFavoriteList && localFavoriteList !== null) {
       this.favoriteList = JSON.parse(localFavoriteList);
     }
-
 
     let returnBtn = document.getElementById('returnBtn');
     returnBtn.addEventListener("click", function(){
@@ -62,7 +56,15 @@ class Main {
       main.manageFavoriteBtn();
     });
 
-    
+    let searchBtn = document.getElementById('searchBtn');
+    searchBtn.addEventListener('keypress', (event)=>{
+
+      if(event.code === 'Enter') {
+        this.reloadProjectElements();
+        const text = event.target.value;
+        this.filterProject(text);
+      }
+    });
 
     // cargamos proyectos
     fetch('data/response01Projects.json')
@@ -89,7 +91,6 @@ class Main {
 
           // cargo cada proyecto al listado de mi clase Table
           this.projectList.push(myProject);
-          
           this.projectPanel.append(projectElement);
           
         });
@@ -114,18 +115,35 @@ class Main {
           dataCommit.message.forEach(commit => {
             project.addCommit(commit, commitPanel);
           });
-
-
         });
     }
+
+    filterProject(text) {
+      const projectElementList = document.querySelectorAll('mmc-project-item');
+      projectElementList.forEach(element => {
+        console.log(element);
+        if (!(this.startsWith(element.codeclient, text)
+          || this.startsWith(element.codeproject, text)
+          || this.startsWith(element.name, text)
+          || this.startsWith(element.description, text)
+        )) {
+          element.remove();
+        }
+      });
+    }
+
+    startsWith(string, key) {
+      return string.toLowerCase().startsWith(key.toLowerCase());
+
+    }
+
 
     removeAllProjectsHtmls(){
       const projectList = document.querySelectorAll('mmc-project-item');
 
-      projectList.forEach(p => {
-        p.remove();
+      projectList.forEach(project => {
+        project.remove();
       });
-
     }
 
     createProjectHtmlElement(project, isFavorite) {
@@ -161,8 +179,6 @@ class Main {
               main.favoriteList = main.favoriteList.filter(favoriteItem => { favoriteItem === event.target.getAttribute('codeproject')});
               localStorage.setItem('ibimFavoriteList', JSON.stringify(main.favoriteList));
             }
-            
-            
           }
           
         });
@@ -170,10 +186,6 @@ class Main {
         event.preventDefault();
         event.stopPropagation();
       });
-
-      
-
-
       return projectElement;
   }
 
@@ -191,18 +203,14 @@ class Main {
     
     if (main.favoriteFilter) {
       const projectList = document.querySelectorAll('mmc-project-item');
-
       projectList.forEach(p => {
         if(p.favorite !== 'true' && p.favorite !== true) {
           p.remove();
-
         }
       });
-
     } else {
       main.reloadProjectElements();
     }
-
   }
 
 
